@@ -1,0 +1,29 @@
+<!-- <app-top-navbar></app-top-navbar> -->
+
+
+<!-- <div>
+  <app-side-navbar></app-side-navbar>
+</div> -->
+
+<div class="app-container">
+
+  <mat-toolbar class="nav-toolbar">
+      <span>National Traffic Database</span>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="64">
+    <mat-sidenav mode="side" opened [fixedInViewport]="true" fixedTopGap="64">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let link of links">
+              <mat-icon matListIcon> {{ link.iconImage }}</mat-icon>
+              <a matLine href="#">{{ link.name }}</a>
+            </mat-list-item>
+          </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <p>Default text</p>
+      <!-- <p *ngFor="let content of fillerContent">{{content}}</p> -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
