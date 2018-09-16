@@ -15,11 +15,16 @@ import {FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
+import { HomeNewComponent } from './home-new/home-new.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { RealTimeMonitorComponent } from './real-time-monitor/real-time-monitor.component';
 
 
 const routes: Routes = [
-  {path : '', component: SignInComponent},
-  {path : 'home', component: HomeComponent}
+  {path : '', redirectTo: '/statistics', pathMatch: 'full'},
+  {path: 'statistics', component: StatisticsComponent},
+  {path : 'home', component: HomeComponent},
+  {path : 'monitor', component: RealTimeMonitorComponent}
 ];
 
 
@@ -29,7 +34,10 @@ const routes: Routes = [
     SignInComponent,
     HomeComponent,
     TopNavbarComponent,
-    SideNavbarComponent
+    SideNavbarComponent,
+    HomeNewComponent,
+    StatisticsComponent,
+    RealTimeMonitorComponent
   ],
   imports: [
     BrowserModule,

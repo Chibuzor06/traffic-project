@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col">
+    <h3>Statistics</h3>
+  </div>
+</div>
+
+<fieldset style="padding: 10px;border: #e0dddd 1px solid;">
+  <form>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="regionSelect">Region</label>
+          <select class="form-control form-control-sm" id="regionSelect" aria-describedby="regionHelp">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <small id="regionHelp" class="form-text text-muted">Select location to view traffic statistics</small>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label for="startDate">From</label>
+          <input type="date" class="form-control form-control-sm" id="startDate" placeholder="dd/mm/yyyy">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+            <label for="endDate">To</label>
+            <input type="date" class="form-control form-control-sm" id="endDate">
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+  </form>
+  </fieldset>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <canvas id="lineChart0" width="600" height="300"></canvas>
+  </div>
+  <div class="col-md-6">
+    <canvas id="lineChart1" width="600" height="300"></canvas>
+  </div>
+</div>
