@@ -18,6 +18,7 @@ import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { HomeNewComponent } from './home-new/home-new.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { RealTimeMonitorComponent } from './real-time-monitor/real-time-monitor.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const routes: Routes = [
@@ -47,7 +48,8 @@ const routes: Routes = [
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

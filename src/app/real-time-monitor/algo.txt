@@ -1,0 +1,12 @@
+Activity : High, Low
+Update chart every 4 seconds
+Activity array.
+Total vehicle count variable
+At Update
+  Set x axis value to current time
+  vehicle count += vehicle count + activity array length
+  if activity array length greater than zero
+    Set y axis value to High
+  else
+    Set y axis value to low
+  empty activity array

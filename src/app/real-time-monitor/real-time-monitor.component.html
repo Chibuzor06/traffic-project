@@ -10,7 +10,7 @@
     <div class="pac-card" id="pac-card">
       <div>
         <div id="title">
-          Street Traffic Search
+          Street Traffic Activity
         </div>
       </div>
       <div id="pac-container">
@@ -19,5 +19,29 @@
       </div>
     </div>
     <div #gmap style="width:100%;height:300px"></div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <canvas id="barChart" #barChart width="550" height="250"></canvas>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Showing activity for </h5>
+        <p class="font-weight-light">{{street?.address}}</p>
+        <p class="card-text">
+          Vehicle count {{monitorStartTime ? 'since ' + monitorStartTime + ': ' : ''}}{{vehicleCount}}
+        </p>
+        <button type="button" class="btn btn-primary" (click)="toggleLiveData()">
+          {{this.testMode? 'Go Live': 'Test Simulation'}}
+        </button>
+        <button type="button" class="btn btn-primary" style="margin-left: 10px"
+          [disabled]="!monitoring" (click)="stopMonitoring()">
+          Stop Monitoring
+        </button>
+      </div>
+    </div>
   </div>
 </div>

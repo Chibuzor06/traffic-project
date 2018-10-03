@@ -5,31 +5,26 @@
 </div>
 
 <fieldset style="padding: 10px;border: #e0dddd 1px solid;">
-  <form>
+  <form #f="ngForm" (ngSubmit)="onFilterCharts(f)">
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group">
           <label for="regionSelect">Region</label>
-          <select class="form-control form-control-sm" id="regionSelect" aria-describedby="regionHelp">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-          <small id="regionHelp" class="form-text text-muted">Select location to view traffic statistics</small>
+          <input type="text"name="street" [ngModel]="street?.address" class="form-control form-control-sm" #streetInput id="streetInput"
+            placeholder="Enter Street Address" aria-describedby="regionHelp">
+          <small id="regionHelp"  class="form-text text-muted">Input location to view traffic statistics</small>
         </div>
       </div>
       <div class="col-sm-2">
         <div class="form-group">
           <label for="startDate">From</label>
-          <input type="date" class="form-control form-control-sm" id="startDate" placeholder="dd/mm/yyyy">
+          <input type="date" name="startDate" ngModel class="form-control form-control-sm" id="startDate" placeholder="dd/mm/yyyy">
         </div>
       </div>
       <div class="col-sm-2">
         <div class="form-group">
             <label for="endDate">To</label>
-            <input type="date" class="form-control form-control-sm" id="endDate">
+            <input type="date" ngModel name="endDate" class="form-control form-control-sm" id="endDate">
         </div>
       </div>
     </div>
