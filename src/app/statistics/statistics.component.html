@@ -10,7 +10,7 @@
       <div class="col-sm-4">
         <div class="form-group">
           <label for="regionSelect">Region</label>
-          <input type="text"name="street" [ngModel]="street?.address" class="form-control form-control-sm" #streetInput id="streetInput"
+          <input type="text" name="street" [ngModel]="street?.address" class="form-control form-control-sm" #streetInput id="streetInput"
             placeholder="Enter Street Address" aria-describedby="regionHelp">
           <small id="regionHelp"  class="form-text text-muted">Input location to view traffic statistics</small>
         </div>
@@ -38,5 +38,38 @@
   </div>
   <div class="col-md-6">
     <canvas id="lineChart1" width="600" height="300"></canvas>
+  </div>
+</div>
+<br>
+<div class="row" *ngIf=showAnalysis>
+  <div class="col-6">
+    <div class="card" >
+      <div class="card-header">
+        <h5>Analysis Results</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong>Average Daily Traffic (ADT): </strong>
+          {{averageDailyTraffic ? averageDailyTraffic + ' vehicles per day': ''}}
+        </li>
+        <li class="list-group-item">
+          <strong>Peak Time of Traffic Flow: </strong>
+          {{peakTimeOfTrafficFlow}}
+        </li>
+        <li class="list-group-item">
+          <strong>Maximum Vehicles in an Hour: </strong>
+          {{maxVehiclesInAnHour}}
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Analysis Results</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Average Daily Traffic (ADT)</li>
+          <li class="list-group-item">Annual ('Periodic' if period less than 12 months) Daily Traffic (AADT)</li>
+        </ul>
+      </div>
+    </div> -->
   </div>
 </div>

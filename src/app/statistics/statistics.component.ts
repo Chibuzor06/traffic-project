@@ -14,8 +14,15 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   lineCanvas0; lineCanvas1;
   autocomplete: google.maps.places.Autocomplete;
   street: {address: string, placeId: string};
-  baseUrl = 'http://localhost:8081/finalyearproj/api/getChartData';
+  baseUrl = 'http://localhost:8081/finalyearproj/api/getTrafficAnalysis';
   @ViewChild('streetInput') inputElement: any;
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'];
+  showAnalysis = true;
+  test = true;
+  averageDailyTraffic;
+  maxVehiclesInAnHour;
+  peakTimeOfTrafficFlow;
 
   constructor(private http: HttpClient, private appRef: ApplicationRef) { }
 
@@ -58,15 +65,18 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     this.appRef.tick();
   }
 
-  private initCharts() {
+  initCharts() {
+    // labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    // data: [20, 10, 50, 100, 25, 76]
+    // data: [12, 30, 3, 3, 13, 12],
     this.lineCanvas0 = document.getElementById('lineChart0');
     this.lineChart0 = new Chart(this.lineCanvas0, {
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: (this.test ? ['January', 'February', 'March', 'April', 'May', 'June'] : []),
         datasets: [{
-          label: 'Vehicle Count',
-          data: [20, 10, 50, 100, 25, 76],
+          label: 'Vehicle Volume',
+          data: (this.test ? [20, 10, 50, 100, 25, 76] : []),
           borderColor: '#3cba9f',
           backgroundColor: '#3cba9f',
           fill: false
@@ -102,10 +112,10 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     this.lineChart1 = new Chart(this.lineCanvas1, {
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: (this.test ? ['January', 'February', 'March', 'April', 'May', 'June'] : []),
         datasets: [{
-          label: 'Average Vehicle Count per Hour',
-          data: [12, 30, 3, 3, 13, 12],
+          label: 'Average Vehicle Volume per Hour',
+          data: (this.test ? [12, 30, 3, 3, 13, 12] : []),
           borderColor: '#e0868d',
           backgroundColor: '#e0868d',
           fill: false
@@ -141,18 +151,40 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   onFilterCharts(form: NgForm) {
     console.log(form.value);
     const formValues = form.value;
-    const start = new Date (formValues.startDate).toISOString();
-    const end = new Date(formValues.endDate).toISOString();
-    const url = `${this.baseUrl}?trafficEntry.streetID=${this.street.placeId}&startDate=${start}
-      &endDate=${end}`;
+    const start = new Date (formValues.startDate);
+    const end = formValues.endDate ? new Date(formValues.endDate) : new Date();
+    const url = `${this.baseUrl}?trafficEntry.streetID=${this.test ? 'testStreetId' : this.street.placeId}&startDate=${start.toISOString()}
+      &endDate=${end.toISOString()}`;
     console.log(url);
     this.http.get(url).subscribe(
-      response => {
+      (response: any) => {
         console.log('response: ', response);
+        window.scrollTo(0, document.body.scrollHeight);
+        const monthNames = this.generateMonthNames(start, end);
+        console.log(monthNames);
+        this.updateCharts(response.vehicleVolumePerMonth, response.monthlyAverageVehicleVolumePerHour, monthNames);
+        this.averageDailyTraffic = response.averageDailyTraffic;
+        this.maxVehiclesInAnHour = response.maxVehiclesInAnHour;
+        this.peakTimeOfTrafficFlow = response.peakTimeOfTrafficFlow;
       },
       err => {
         console.log(err);
       }
     );
+  }
+  generateMonthNames(start: Date, end: Date): string[] {
+    const monthNames = [];
+    for (let i = start.getMonth(); i < end.getMonth() + 1; i++) {
+      monthNames.push(this.months[i]);
+    }
+    return monthNames;
+  }
+  updateCharts(lineChartValues0, lineChartValues1, monthNames: string[]) {
+    this.lineChart0.data.datasets[0].data = lineChartValues0.slice();
+    this.lineChart1.data.datasets[0].data = lineChartValues1.slice();
+    this.lineChart0.data.labels = monthNames.slice();
+    this.lineChart1.data.labels = monthNames.slice();
+    this.lineChart0.update();
+    this.lineChart1.update();
   }
 }
