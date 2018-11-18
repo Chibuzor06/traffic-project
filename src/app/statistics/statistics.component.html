@@ -50,7 +50,7 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
           <strong>Average Daily Traffic (ADT): </strong>
-          {{averageDailyTraffic ? averageDailyTraffic + ' vehicles per day': ''}}
+          {{averageDailyTraffic | number:'1.1-4'}}{{averageDailyTraffic ? ' vehicles per day': ''}}
         </li>
         <li class="list-group-item">
           <strong>Peak Time of Traffic Flow: </strong>
